@@ -289,3 +289,19 @@
     aspect-ratio: 21/9;
   }
 }
+/* Corrección para que la galería sea de 1 columna en celulares */
+@media (max-width: 767px) {
+  .grid-cols-1, 
+  .grid { 
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important; /* Espacio elegante entre imágenes */
+  }
+
+  .img-editorial {
+    width: 100% !important;
+    margin-top: 0 !important; /* Elimina el escalonado en móvil */
+    aspect-ratio: 4 / 5 !important; /* Formato editorial vertical */
+  }
+}

@@ -101,7 +101,7 @@ const QuienesSomos = () => {
               </p>
               <div className="divider-gold" />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid items-baseline grid-cols-1 md:grid-cols-2 gap-8 mt-12 lg:mt-0">
               <div className="img-editorial aspect-editorial rounded-sm overflow-hidden">
                 <img
                   src={eventLights}
@@ -189,27 +189,32 @@ const QuienesSomos = () => {
 
       {/* Gallery */}
       <section className="section-padding bg-charcoal">
-        <div className="container-luxury">
-          <div className="grid lg:grid-cols-3 gap-4">
-            <div className="lg:col-span-2 img-editorial aspect-wide rounded-sm overflow-hidden">
-              <img
-                src={tableSetting}
-                alt="Mesa elegante"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="img-editorial aspect-wide lg:aspect-auto rounded-sm overflow-hidden">
-              <img
-                src={eventLights}
-                alt="Iluminación de evento"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+  <div className="container-luxury">
+    {/* Agregamos items-stretch para que el grid obligue a los hijos a medir lo mismo */}
+    <div className="grid lg:grid-cols-3 gap-4 items-stretch">
+      
+      {/* Imagen 2/3: Quitamos aspect-wide y ponemos una altura fija (ej. h-[450px]) */}
+      <div className="lg:col-span-2 rounded-sm overflow-hidden h-[300px] md:h-[450px]">
+        <img
+          src={tableSetting}
+          alt="Mesa elegante"
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Imagen 1/3: Usamos la MISMA altura fija para que queden perfectamente alineadas */}
+      <div className="rounded-sm overflow-hidden h-[300px] md:h-[450px]">
+        <img
+          src={eventLights}
+          alt="Iluminación de evento"
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* CTA */}
       <section className="py-20 md:py-28 bg-charcoal-deep border-t border-border/30">
