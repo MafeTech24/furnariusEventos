@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Furnarius Design System - Quiet Luxury Aesthetic */
+
+@layer base {
+  :root {
+    /* Core Palette - Dark Luxury */
+    --background: 20 10% 8%;
+    --foreground: 40 20% 92%;
+
+    /* Card surfaces - slightly elevated dark */
+    --card: 20 8% 12%;
+    --card-foreground: 40 20% 92%;
+
+    /* Popover/Modals */
+    --popover: 20 8% 10%;
+    --popover-foreground: 40 20% 92%;
+
+    /* Primary - Warm Gold/Champagne */
+    --primary: 38 45% 65%;
+    --primary-foreground: 20 10% 8%;
+
+    /* Secondary - Warm Cream */
+    --secondary: 35 25% 85%;
+    --secondary-foreground: 20 15% 15%;
+
+    /* Muted - Sophisticated Gray */
+    --muted: 20 8% 18%;
+    --muted-foreground: 30 10% 55%;
+
+    /* Accent - Soft Gold Glow */
+    --accent: 38 50% 55%;
+    --accent-foreground: 20 10% 8%;
+
+    /* Destructive */
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 40 20% 95%;
+
+    /* Borders & Inputs */
+    --border: 30 8% 22%;
+    --input: 30 8% 18%;
+    --ring: 38 45% 65%;
+
+    --radius: 0.375rem;
+
+    /* Sidebar */
+    --sidebar-background: 20 10% 6%;
+    --sidebar-foreground: 40 20% 85%;
+    --sidebar-primary: 38 45% 65%;
+    --sidebar-primary-foreground: 20 10% 8%;
+    --sidebar-accent: 20 8% 15%;
+    --sidebar-accent-foreground: 40 20% 92%;
+    --sidebar-border: 30 8% 18%;
+    --sidebar-ring: 38 45% 65%;
+
+    /* Custom Design Tokens */
+    --cream: 40 30% 90%;
+    --cream-dark: 35 20% 75%;
+    --charcoal: 20 10% 12%;
+    --charcoal-deep: 20 10% 6%;
+    --gold: 38 45% 65%;
+    --gold-light: 40 50% 75%;
+    --gold-glow: 38 60% 50%;
+    
+    /* Gradients */
+    --gradient-dark-overlay: linear-gradient(180deg, hsla(20, 10%, 6%, 0.7) 0%, hsla(20, 10%, 6%, 0.9) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(38, 45%, 65%) 0%, hsl(40, 50%, 75%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsla(20, 10%, 6%, 0.4) 0%, hsla(20, 10%, 6%, 0.85) 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsla(0, 0%, 0%, 0.4);
+    --shadow-glow: 0 0 40px -10px hsla(38, 60%, 50%, 0.3);
+    --shadow-card: 0 8px 32px -8px hsla(0, 0%, 0%, 0.5);
+    
+    /* Typography */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
+  .dark {
+    /* Same as root - dark by default */
+    --background: 20 10% 8%;
+    --foreground: 40 20% 92%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    @apply font-normal tracking-tight;
+  }
+
+  /* Selection styling */
+  ::selection {
+    background: hsl(var(--primary) / 0.3);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  /* Editorial text styles */
+  .text-editorial-xl {
+    font-family: var(--font-serif);
+    @apply text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95];
+  }
+
+  .text-editorial-lg {
+    font-family: var(--font-serif);
+    @apply text-3xl md:text-5xl lg:text-6xl font-light tracking-tight leading-tight;
+  }
+
+  .text-editorial-md {
+    font-family: var(--font-serif);
+    @apply text-2xl md:text-3xl lg:text-4xl font-light tracking-tight leading-tight;
+  }
+
+  .text-editorial-sm {
+    font-family: var(--font-serif);
+    @apply text-xl md:text-2xl font-light tracking-tight leading-snug;
+  }
+
+  /* Body text */
+  .text-body {
+    font-family: var(--font-sans);
+    @apply text-base font-light leading-relaxed tracking-wide;
+  }
+
+  .text-body-sm {
+    font-family: var(--font-sans);
+    @apply text-sm font-light leading-relaxed tracking-wide;
+  }
+
+  /* Label/Caption */
+  .text-label {
+    font-family: var(--font-sans);
+    @apply text-xs font-medium uppercase tracking-[0.2em];
+  }
+
+  /* Luxury button styles */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center px-8 py-4 text-sm font-medium uppercase tracking-[0.15em] transition-all duration-500 ease-out;
+    font-family: var(--font-sans);
+  }
+
+  .btn-luxury-primary {
+    @apply btn-luxury bg-primary text-primary-foreground hover:bg-gold-light;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-luxury-outline {
+    @apply btn-luxury border border-cream/30 text-cream hover:border-primary hover:text-primary bg-transparent;
+  }
+
+  .btn-luxury-ghost {
+    @apply btn-luxury text-cream/80 hover:text-primary bg-transparent;
+  }
+
+  /* Container */
+  .container-luxury {
+    @apply max-w-7xl mx-auto px-6 md:px-8 lg:px-12;
+  }
+
+  /* Video background container */
+  .video-bg-container {
+    @apply absolute inset-0 overflow-hidden;
+  }
+
+  .video-bg-container video {
+    @apply w-full h-full object-cover;
+  }
+
+  /* Overlay */
+  .overlay-dark {
+    background: var(--gradient-hero);
+  }
+
+  /* Divider */
+  .divider-gold {
+    @apply w-16 h-px bg-primary/50;
+  }
+
+  /* Card luxury */
+  .card-luxury {
+    @apply bg-card/50 backdrop-blur-sm border border-border/50 rounded-sm overflow-hidden transition-all duration-500;
+  }
+
+  .card-luxury:hover {
+    @apply border-primary/30;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Image container with aspect ratio */
+  .img-editorial {
+    @apply relative overflow-hidden;
+  }
+
+  .img-editorial img {
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
+  }
+
+  .img-editorial:hover img {
+    @apply scale-105;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-36;
+  }
+
+  /* Fade in animation */
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger children */
+  .stagger-children > * {
+    @apply fade-in-up;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-charcoal/80 backdrop-blur-md;
+  }
+
+  .glass-light {
+    @apply bg-cream/10 backdrop-blur-md;
+  }
+}
+
+@layer utilities {
+  /* Custom spacing */
+  .gap-editorial {
+    @apply gap-8 md:gap-12 lg:gap-16;
+  }
+
+  /* Text gradient */
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Aspect ratios */
+  .aspect-editorial {
+    aspect-ratio: 3/4;
+  }
+
+  .aspect-wide {
+    aspect-ratio: 16/9;
+  }
+
+  .aspect-cinema {
+    aspect-ratio: 21/9;
+  }
+}
