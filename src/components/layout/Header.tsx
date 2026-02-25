@@ -7,7 +7,7 @@ const navItems = [
   { label: "Inicio", path: "/" },
   { label: "Quiénes Somos", path: "/quienes-somos" },
   { label: "Servicios", path: "/servicios" },
-  { label: "Nuestros Clientes", path: "/nuestros-clientes" },
+  //{ label: "Nuestros Clientes", path: "/nuestros-clientes" },
   { label: "Contacto", path: "/contacto" },
 ];
 
@@ -69,14 +69,14 @@ const Header = () => {
           </div>
 
           {/* CTA Button Desktop */}
-          <div className="hidden lg:block">
+          {/* <div className="hidden lg:block">
             <Link
               to="/contacto"
               className="btn-luxury-primary text-xs px-6 py-3"
             >
               Hablemos
             </Link>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <button

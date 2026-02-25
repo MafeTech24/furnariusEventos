@@ -10,26 +10,26 @@ const socialLinks = [
   },
   {
     icon: Facebook,
-    href: "#", // Placeholder
+    href: "https://www.facebook.com/furnariusequipamiento",
     label: "Facebook",
   },
-  {
-    icon: Youtube,
-    href: "#", // Placeholder
-    label: "YouTube",
-  },
-  {
-    icon: Linkedin,
-    href: "#", // Placeholder
-    label: "LinkedIn",
-  },
+  // {
+  //   icon: Youtube,
+  //   href: "#", // Placeholder
+  //   label: "YouTube",
+  // },
+  // {
+  //   icon: Linkedin,
+  //   href: "#", // Placeholder
+  //   label: "LinkedIn",
+  // },
 ];
 
 const footerLinks = [
   { label: "Inicio", path: "/" },
   { label: "Quiénes Somos", path: "/quienes-somos" },
   { label: "Servicios", path: "/servicios" },
-  { label: "Nuestros Clientes", path: "/nuestros-clientes" },
+  //{ label: "Nuestros Clientes", path: "/nuestros-clientes" },
   { label: "Contacto", path: "/contacto" },
 ];
 
@@ -100,10 +100,10 @@ const Footer = () => {
             <ul className="space-y-3 text-body-sm text-muted-foreground">
               <li>
                 <a
-                  href="mailto:info@furnarius.com.ar"
+                  href="Contacto"
                   className="hover:text-primary transition-colors duration-300"
                 >
-                  info@furnarius.com.ar
+                  furnariuseventos@gmail.com
                 </a>
               </li>
               <li>
@@ -111,7 +111,7 @@ const Footer = () => {
                   href="tel:5493517051171"
                   className="hover:text-primary transition-colors duration-300"
                 >
-                  351 705-1171
+                  +54 351 705-1171
                 </a>
               </li>
               <li>Córdoba, Argentina</li>
