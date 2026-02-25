@@ -153,7 +153,7 @@ const HelpWidget = () => {
               className="w-full border-primary/30 text-primary hover:bg-primary/5 hover:text-primary-foreground group"
               onClick={() => {
                 // Redirigir a WhatsApp o activar el chatbot
-                window.open("https://wa.me/5493517051171?text=Hola,%20tengo%20una%20duda%20que%20no%20está%20en%20las%20FAQ", "_blank");
+                window.open("https://wa.me/1111111111?text=Hola,%20tengo%20una%20duda%20que%20no%20está%20en%20las%20FAQ", "_blank");
               }}
             >
               <MessageCircle size={18} className="mr-2" />

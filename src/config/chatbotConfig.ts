@@ -12,7 +12,7 @@ export const chatbotConfig: ChatbotConfig = {
   // ========================================
   // INFORMACIÓN DEL NEGOCIO
   // ========================================
-  whatsappNumber: "5493517051171", // +54 351 705-1171
+  whatsappNumber: "1111111111", // TEMPORAL PARA VIDEO: 111-1111111
   asesorName: "Equipo Furnarius",
 
   // ========================================

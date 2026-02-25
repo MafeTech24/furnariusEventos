@@ -56,7 +56,7 @@ const Contacto = () => {
   };
 
   const whatsappUrl =
-    "https://wa.me/5493517051171?text=Hola,%20quiero%20cotizar%20un%20evento%20con%20Furnarius.";
+    "https://wa.me/1111111111?text=Hola,%20quiero%20cotizar%20un%20evento%20con%20Furnarius.";
 
   return (
     <main>
@@ -149,7 +149,7 @@ const Contacto = () => {
                       value={formData.telefono}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-charcoal border border-border rounded-sm text-cream placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-300"
-                      placeholder="+54 9 351 555-5555"
+                      placeholder="111-1111111"
                     />
                   </div>
 
@@ -306,11 +306,11 @@ const Contacto = () => {
                     <span className="block text-label text-cream/70 mb-1">
                       Teléfono
                     </span>
-                    <a
-                      href="tel:+5493517051171"
+                <a
+                      href="tel:1111111111"
                       className="hover:text-primary transition-colors duration-300"
                     >
-                      351 705-1171
+                      111-1111111
                     </a>
                   </li>
                   <li>

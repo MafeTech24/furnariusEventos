@@ -271,7 +271,7 @@ const Index = () => {
               Hablemos
             </Link>
             <a
-              href="https://wa.me/+54 9 3517 05-1171?text=Hola,%20quiero%20cotizar%20un%20evento%20con%20Furnarius."
+              href="https://wa.me/1111111111?text=Hola,%20quiero%20cotizar%20un%20evento%20con%20Furnarius."
               target="_blank"
               rel="noopener noreferrer"
               className="btn-luxury-outline"
