@@ -1,107 +1,53 @@
-import { useState, useRef, useEffect } from "react";
-import { HelpCircle, X, Send } from "lucide-react";
-import { useChatbot } from "@/hooks/useChatbot";
-import { ChatMessage } from "@/components/chatbot/ChatMessage";
-import { ChatOptionButtons } from "@/components/chatbot/ChatOptionButtons";
-import { LeadSummaryCard } from "@/components/chatbot/LeadSummaryCard";
-import { TypingIndicator } from "@/components/chatbot/TypingIndicator";
-import { ButtonOption } from "@/types/chatbot";
-import { openWhatsApp } from "@/services/whatsappService";
+import { useState } from "react";
+import { HelpCircle, X, Download, MessageCircle, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 // ============================================================================
-// CHATBOT CONVERSACIONAL FURNARIUS
+// CENTRO DE AYUDA FURNARIUS (FAQs & DOSSIER)
 // ============================================================================
+
+const faqs = [
+  {
+    question: "¿Cómo reservo una fecha para mi evento?",
+    answer: "Podés reservar tu fecha mediante una seña del 30% del valor total presupuestado. El saldo restante se cancela hasta 15 días antes del evento.",
+  },
+  {
+    question: "¿Qué zonas de cobertura tienen?",
+    answer: "Nuestra base está en Córdoba Capital, pero realizamos eventos en todo el país. Para eventos fuera de Córdoba, se adicionan costos de logística y traslados.",
+  },
+  {
+    question: "¿Con cuánto tiempo de anticipación debo contratar?",
+    answer: "Para casamientos y eventos grandes, recomendamos entre 6 y 10 meses. Para eventos corporativos o íntimos, entre 1 y 3 meses suele ser suficiente, sujeto a disponibilidad.",
+  },
+  {
+    question: "¿El mobiliario está incluido en la ambientación?",
+    answer: "Depende del pack contratado. Contamos con mobiliario propio de diseño que podemos integrar en la propuesta para lograr una estética cohesiva y exclusiva.",
+  },
+  {
+    question: "¿Puedo pedir un presupuesto personalizado?",
+    answer: "¡Por supuesto! Cada evento es único. Podés usar nuestro chatbot (botón de WhatsApp) para una cotización rápida o contactarnos directamente.",
+  },
+];
 
 const HelpWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [showSummary, setShowSummary] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const {
-    messages,
-    leadData,
-    isTyping,
-    awaitingInput,
-    currentFlow,
-    handleUserInput,
-    resetChat,
-  } = useChatbot();
-
-  // Auto-scroll al último mensaje
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages, isTyping]);
-
-  // Focus en input cuando se abra el chat
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isOpen]);
-
-  // Manejar selección de botón
-  const handleOptionSelect = (option: ButtonOption) => {
-    // Acciones especiales
-    if (option.action === "open_whatsapp") {
-      openWhatsApp(leadData);
-      handleUserInput(option.label, option.intent, option.action);
-      return;
-    }
-
-    if (option.value === "send_whatsapp") {
-      setShowSummary(true);
-      return;
-    }
-
-    if (option.value === "edit_data") {
-      setShowSummary(false);
-      handleUserInput("Quiero editar los datos", "cotizacion");
-      return;
-    }
-
-    if (option.value === "menu") {
-      setShowSummary(false);
-      handleUserInput("Volver al menú principal");
-      return;
-    }
-
-    // Enviar como mensaje normal
-    handleUserInput(option.label, option.intent);
-  };
-
-  // Manejar envío de texto
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
-
-    handleUserInput(inputValue);
-    setInputValue("");
-  };
-
-  // Manejar Enter en input
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSendMessage();
-    }
-  };
-
-  // Obtener opciones del último mensaje
-  const lastMessage = messages[messages.length - 1];
-  const showOptions = lastMessage?.options && awaitingInput && !isTyping;
 
   return (
     <>
-      {/* Help Button */}
+      {/* Help Button (Bottom Left) */}
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-6 left-6 z-50 group"
-        aria-label="Ayuda"
+        aria-label="Ayuda y Preguntas frecuentes"
       >
-        <div className="flex items-center justify-center w-14 h-14 bg-muted rounded-full shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:bg-muted/80">
+        <div className="flex items-center justify-center w-14 h-14 bg-muted border border-border/50 rounded-full shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:bg-muted/80">
           <HelpCircle size={24} className="text-cream" />
         </div>
       </button>
@@ -119,23 +65,23 @@ const HelpWidget = () => {
         )}
       </AnimatePresence>
 
-      {/* Chat Panel */}
+      {/* Help Panel */}
       <motion.div
-        initial={false}
+        initial={{ x: "-100%" }}
         animate={{
           x: isOpen ? 0 : "-100%",
         }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="fixed left-0 top-0 h-full w-full max-w-md bg-charcoal border-r border-border z-50 flex flex-col"
+        className="fixed left-0 top-0 h-full w-full max-w-md bg-charcoal border-r border-border z-50 flex flex-col shadow-2xl"
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border bg-charcoal/95 backdrop-blur-sm">
           <div>
             <h3 className="text-editorial-sm text-cream">
-              Asistente Furnarius
+              Centro de Ayuda
             </h3>
             <p className="text-body-sm text-muted-foreground">
-              Cotizá tu evento en minutos
+              Preguntas frecuentes y recursos
             </p>
           </div>
           <button
@@ -147,85 +93,81 @@ const HelpWidget = () => {
           </button>
         </div>
 
-        {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
+        {/* Content Area */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-8 scrollbar-hide">
+          
+          {/* Dossier Section */}
+          <section className="space-y-4">
+            <h4 className="text-label text-primary uppercase tracking-widest text-[10px]">
+              Recursos de Diseño
+            </h4>
+            <div className="p-5 rounded-lg bg-muted/30 border border-border/50 space-y-4 shadow-sm">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <Download size={24} className="text-primary" />
+                </div>
+                <div>
+                  <h5 className="text-editorial-xs text-cream mb-1">Dossier Furnarius 2026</h5>
+                  <p className="text-body-sm text-muted-foreground leading-relaxed">
+                    Descargá nuestro catálogo completo con estilos, servicios y mobiliario exclusivo en formato PDF.
+                  </p>
+                </div>
+              </div>
+              <a 
+                href="/catalogo-furnarius-2026.pdf" 
+                download 
+                className="btn-luxury-primary w-full flex items-center justify-center gap-2 py-3"
+              >
+                <Download size={18} />
+                Descargar PDF
+              </a>
+            </div>
+          </section>
 
-          {/* Typing Indicator */}
-          {isTyping && <TypingIndicator />}
+          {/* FAQs Section */}
+          <section className="space-y-4">
+            <h4 className="text-label text-primary uppercase tracking-widest text-[10px]">
+              Preguntas Frecuentes
+            </h4>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border-border/50">
+                  <AccordionTrigger className="text-body-sm text-left text-cream hover:text-primary transition-colors py-4">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-body-sm text-muted-foreground leading-relaxed pb-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
 
-          {/* Lead Summary Card */}
-          {showSummary && currentFlow === "cotizacion_flow" && (
-            <LeadSummaryCard
-              leadData={leadData}
-              onSendWhatsApp={() => {
-                openWhatsApp(leadData);
-                setShowSummary(false);
-                handleUserInput(
-                  "Gracias, enviado por WhatsApp",
-                  undefined,
-                  "open_whatsapp"
-                );
+          {/* Contact Alternative */}
+          <section className="pt-4 border-t border-border/50">
+            <p className="text-body-sm text-muted-foreground text-center mb-4">
+              ¿No encontraste lo que buscabas?
+            </p>
+            <Button 
+              variant="outline" 
+              className="w-full border-primary/30 text-primary hover:bg-primary/5 hover:text-primary-foreground group"
+              onClick={() => {
+                // Redirigir a WhatsApp o activar el chatbot
+                window.open("https://wa.me/5493517051171?text=Hola,%20tengo%20una%20duda%20que%20no%20está%20en%20las%20FAQ", "_blank");
               }}
-              onEditData={() => {
-                setShowSummary(false);
-                handleUserInput("Quiero editar los datos", "cotizacion");
-              }}
-              onContactAsesor={() => {
-                setShowSummary(false);
-                handleUserInput("Hablar con un asesor", "contacto_humano");
-              }}
-            />
-          )}
-
-          {/* Option Buttons */}
-          {showOptions && !showSummary && (
-            <ChatOptionButtons
-              options={lastMessage.options!}
-              onSelect={handleOptionSelect}
-              disabled={!awaitingInput}
-            />
-          )}
-
-          {/* Scroll anchor */}
-          <div ref={messagesEndRef} />
+            >
+              <MessageCircle size={18} className="mr-2" />
+              Hablar con un asesor
+              <ChevronRight size={14} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Button>
+          </section>
         </div>
 
-        {/* Input Area */}
-        <div className="p-4 border-t border-border bg-charcoal/95 backdrop-blur-sm">
-          <div className="flex gap-2">
-            <input
-              ref={inputRef}
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Escribí tu mensaje..."
-              disabled={!awaitingInput || isTyping}
-              className="flex-1 px-4 py-3 bg-muted/30 border border-border rounded-lg text-body text-cream placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            />
-            <button
-              onClick={handleSendMessage}
-              disabled={!inputValue.trim() || !awaitingInput || isTyping}
-              className="px-4 py-3 bg-primary hover:bg-primary/80 text-white rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Enviar mensaje"
-            >
-              <Send size={20} />
-            </button>
-          </div>
-
-          {/* Reset button (small) */}
-          <button
-            onClick={() => {
-              resetChat();
-              setShowSummary(false);
-            }}
-            className="mt-2 text-body-sm text-muted-foreground hover:text-cream transition-colors duration-300"
-          >
-            Reiniciar conversación
-          </button>
+        {/* Footer */}
+        <div className="p-6 border-t border-border bg-charcoal/50 text-center">
+          <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
+            Furnarius • Creadores de Eventos
+          </p>
         </div>
       </motion.div>
     </>
